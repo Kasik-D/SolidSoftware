@@ -1,26 +1,35 @@
-import { StyleSheet } from 'react-native';
-
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { useAnimateBackgroundColor } from "@/hooks/useAnimateBackgroundColor";
+import React from "react";
+import {
+  Animated,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Text,
+} from "react-native";
 
 export default function HomeScreen() {
+  const { handlePress, interpolatedColor } = useAnimateBackgroundColor();
+
   return (
-    <ThemedView style={styles.titleContainer}>
-      <ThemedText style={styles.title} type="title">Hello there</ThemedText>
-    </ThemedView>
+    <TouchableWithoutFeedback onPress={handlePress}>
+      <Animated.View
+        style={[styles.container, { backgroundColor: interpolatedColor }]}
+      >
+        <Text style={styles.text}>Click Me</Text>
+      </Animated.View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+  container: {
     flex: 1,
-    gap: 8,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  text: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
   },
 });
